@@ -31,11 +31,8 @@ def checkforvowels(name):
         for c in vowels:
             if i == c:
                 total = total + 10
-    
- 
 
     return total
-
 
 
 def findlength(name):
@@ -43,8 +40,6 @@ def findlength(name):
     l = len(name)
 
     return l
-
-
 
 
 def calculatetotal(firstsum,secondsum):
@@ -56,9 +51,6 @@ def calculatetotal(firstsum,secondsum):
                                                           
     return total
 
-
-
- 
 
 firstname = getname(input("Enter your name: ").upper())
 secondname = getname(input("Enter lovers name: ").upper())
