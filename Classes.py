@@ -11,8 +11,8 @@ class Vowels:
                 if c == i:
                     return True
         
-#word1 = Vowels(input("Input string: ").upper(),"AOEUI")
+word1 = Vowels(input("Input string: ").upper(),"AOEUI")
 
 
-#print(word1.checkforvowels())
+print(word1.checkforvowels())
 

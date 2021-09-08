@@ -6,38 +6,51 @@ class Budget:
     
     def withdraw(self,withdrawamount):
         
-        self.balance = self.balance - withdrawamount
+        if self.balance > withdrawamount:
+            self.balance = self.balance - withdrawamount
+            return True
+        else:
+            print("Not enough money")
+            return False
   
 
     def deposit(self,depositamount):
-
+        
         self.balance = self.balance + depositamount
 
 
-categories = Budget("Food"),Budget("Entertainment"),Budget("Films")
 
 
+def add_categories(categories):
+    addcat = len(categories) + 1
+    while len(categories) < addcat:
+        cat = input("Enter a category name: ").capitalize()
+        addvalue = (Budget(cat),)
+        categories = categories + addvalue
+        return categories
+
+    
 def get_balance():
-    balance = int(input("Enter your budget balance"))
+    balance = int(input("Enter your budget balance: "))
     return balance
 
-balance = get_balance()
 
-
-
-def get_choice():
-    userchoice1 = input("Enter category or type L to list them: ").lower
-
-    if userchoice1 == "l":
-        for s in categories:
-            print(s.category)
-            
+def get_choice(categories):
+    check = False
     
-    for i in categories:
-        if userchoice1 == i.category.lower():
-            return i
-    else:
-        ("Wrong input")
+    while check == False:
+        userchoice1 = input("Enter category or type L to list them: ").lower()
+    
+        for i in categories:
+        
+            if userchoice1 == "l":
+                print(i.category)
+                
+            elif userchoice1 == i.category.lower():
+                check = True
+                break
+        
+    return i       
     
 
 def get_deposit_or_withdraw():
@@ -51,28 +64,56 @@ def withdraw_deposit(choice,depo_or_with,balance):
     
     if depo_or_with == 0:
         h = int(input("Amount to deposit: "))
-        choice.deposit(h)
-        balance = balance - h
+        if balance >= h:
+            choice.deposit(h)
+            balance = balance - h
+        else:
+            print("Not enough")
         
     if depo_or_with == 1:
         s = int(input("Amount to withdraw: "))
-        choice.withdraw()  
-        balance = balance - s
+        if choice.withdraw(s) == True:
+            balance = balance + s
     return balance
 
-while True:
-    choice = get_choice()
-    dw = get_deposit_or_withdraw()
-    balance = withdraw_deposit(choice,dw,balance)
+def check_balance(categories):
+    for i in categories:
+
+        print(i.category,"has a balance of", i.balance)
     
-    
-    print("Food has", categories[0].balance)
-    print("Your total balance is:", balance)
-    
-    if choice == "x":
-        break
 
 
+
+def Main():
+    balance = 0
+    categories = Budget("Food"),Budget("Entertainment"),Budget("Films")
+    
+    while True:
+        
+        menu = input("What do you want to do?\n 1. Set Budget\n 2. Withdraw\n 3. Deposit\n 4. Check Balance of categories \n 5. Check Overall Balance\n 6. Check All Balances\n 7. Add category\n ")
+        if menu == "1":
+            balance = get_balance()
+        if menu == "2":
+            choice = get_choice(categories)
+            balance = withdraw_deposit(choice,1,balance)
+        if menu == "3":
+            choice = get_choice(categories)
+            balance = withdraw_deposit(choice,0,balance)
+        if menu == "4":
+             check_balance(categories)
+        if menu == "5":
+            print("Balance is",balance)
+        if menu == "6":
+            check_balance(categories)
+            print("Overall balance is", balance)
+        if menu == "7":
+            categories = add_categories(categories)
+    
+        if menu == "x":
+            break
+
+
+Main()
 
 
 
